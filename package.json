@@ -1,6 +1,6 @@
 {
   "name": "mynewcli",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "oclif example Hello World CLI",
   "author": "zhangdi",
   "bin": {
@@ -19,7 +19,11 @@
   "dependencies": {
     "@oclif/core": "^2",
     "@oclif/plugin-help": "^5",
-    "@oclif/plugin-plugins": "^3.2.6"
+    "@oclif/plugin-plugins": "^3.2.6",
+    "@types/node-notifier": "^8.0.2",
+    "axios": "^1.4.0",
+    "dotenv": "^16.3.1",
+    "node-notifier": "^10.0.1"
   },
   "devDependencies": {
     "@oclif/test": "^2.4.5",
