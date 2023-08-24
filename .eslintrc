@@ -4,6 +4,7 @@
     "oclif-typescript"
   ],
   "rules": {
-    "no-process-exit": "off"
+    "no-process-exit": "off",
+    "node/no-missing-import":"off"
   }
 }

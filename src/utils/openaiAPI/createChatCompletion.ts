@@ -1,11 +1,6 @@
-// import chalk from "chalk";
-// import { fetch } from 'undici'
-// import axios from 'axios';
-const {fetch} = require('undici');
-// import { OPENAI_DOMAIN } from "../../constants.js";
-// import { createParser } from 'eventsource-parser'
-const {createParser} = require('eventsource-parser');
-require('dotenv').config(); // 这行代码加载.env文件的内容到process.env中
+import chalk from "chalk";
+import { fetch } from 'undici'
+import {createParser, type ParsedEvent, type ReconnectInterval} from 'eventsource-parser';
 
 export async function createChatCompletion(options: { [x: string]: any; messages?: { content: string; role: "user" | "assistant"; }[]; onMessage: (data: string) => void }) {
   const { apiKey, onMessage, ...fetchOptions } = options;
@@ -26,25 +21,22 @@ export async function createChatCompletion(options: { [x: string]: any; messages
       stream: true,
     }),
   }).catch((err:any) => {
-    // const chalk = await import('chalk');
-    console.log((`Error: request openai error, ${err.message}`))
+    console.log(chalk.red(`Error: request openai error, ${err.message}`))
     throw err
   });
 
-  // console.log(response,'response')
-
   if (!response?.ok) {
-    console.log((`Error: request openai error, ${response.statusText}(${response.status}), May be more than the longest tokens`))
+    console.log(chalk.red(`Error: request openai error, ${response.statusText}(${response.status}), May be more than the longest tokens`))
     process.exit(1)
   }
 
   if (!response.body) {
     throw new Error('No data')
   }
-
   let currentMessage = '';
 
-  const parser = createParser((event:any) => {
+  //创建解析器实例
+  const parser = createParser((event:ParsedEvent | ReconnectInterval) => {
     if (event.type === 'event') {
       const data = event.data
       if (data === '[DONE]') {
@@ -60,7 +52,9 @@ export async function createChatCompletion(options: { [x: string]: any; messages
     }
   })
 
+  //提供数据流
   for await (const chunk of response.body as any) {
+    //将Uint8Array 或 Buffer转成字符串
     const decoder = new TextDecoder('utf-8')
     parser.feed(decoder.decode(chunk))
   }

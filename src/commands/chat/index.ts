@@ -1,21 +1,18 @@
 import { Command } from '@oclif/core'
-require('dotenv').config(); // 这行代码加载.env文件的内容到process.env中
-// import axios from 'axios';
-// import chalk from 'chalk';
-// const chalk = require('chalk');
-import { createChatCompletion } from '../../utils/openaiAPI/createChatCompletion';
-// import { startLoading, stopLoading } from '../../utils/loading';
-const inquirer = require('inquirer');
-// const logUpdate = require('log-update');
+import 'dotenv/config'// 加载.env文件的内容
+import chalk from 'chalk';
+import { createChatCompletion } from '../../utils/openaiAPI/createChatCompletion.js';
+import { startLoading, stopLoading } from '../../utils/loading.js';
+import inquirer from 'inquirer'
+import logUpdate  from 'log-update';
 
 export class MyCommand extends Command {
-  // static description = 'description of this example command'
-  static description = 'Query the API';
+  static description = 'chat with the bot'
 
   async run(): Promise<void> {
-    const AIEmoji = '👽';
-    const UserEmoji = '🫣';
-    const welcomeMessage = (`${AIEmoji}: Hi, I am ChatGpt, I can answer your questions. Ask me anything, or say "bye" to exit.`);
+    const AIEmoji = '🤖';
+    const UserEmoji = '👤';
+    const welcomeMessage = chalk.green(`${AIEmoji}:您好,您可以向我提问任何问题,或者使用'bye'退出`);
     console.log(welcomeMessage)
 
      // output messages
@@ -25,7 +22,6 @@ export class MyCommand extends Command {
        content: string;
        role: 'user' | 'assistant';
      }[] = [];
-
 
     while (true) {
       const { question } = await inquirer.prompt({
@@ -45,7 +41,7 @@ export class MyCommand extends Command {
         role: 'user',
       });
 
-      // startLoading('AI is thinking ...');
+      startLoading('AI is thinking ...');
        const apiKey = process.env.ENV_VARIBLE ? `Bearer ${process.env.ENV_VARIBLE}` : '';
         const currentMessage = await createChatCompletion({
           apiKey,
@@ -54,14 +50,10 @@ export class MyCommand extends Command {
             if (!message) {
               return;
             }
-            // stopLoading();
-            this.log(`${AIEmoji}: ${message}`)
-            // const logUpdate = await import('log-update')
-            // console.log(logUpdate,'logUpdate')
-            // logUpdate((`${AIEmoji}: ${message}`));
+            stopLoading();
+            logUpdate(chalk.green(`${AIEmoji}: ${message}`));
           }
         });
-        // console.log(currentMessage,'currentMessage')
 
         if (!currentMessage) {
           chatMessages.push({
@@ -70,7 +62,7 @@ export class MyCommand extends Command {
           });
         }
 
-        // logUpdate.done()
+        logUpdate.done()
     }
     // const url = 'https://chat.fugui.info/v1/chat/completions'
     // // 定义固定的请求头
