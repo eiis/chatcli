@@ -7,7 +7,7 @@ settings:
 dependencies:
   '@oclif/core':
     specifier: ^2
-    version: 2.0.1
+    version: 2.11.10(@types/node@16.18.41)(typescript@4.9.5)
   '@oclif/plugin-help':
     specifier: ^5
     version: 5.0.0(@oclif/config@1.18.17)
@@ -735,40 +735,6 @@ packages:
       - supports-color
     dev: false
 
-  /@oclif/core@2.0.1:
-    resolution: {integrity: sha512-Etscb7mTVnRsY66i0aQoSKYD7bsbtrwbFzh7inp2ZyD3kldaoTY6sBQMqIQQQNcqpnQmwC/QjcbysfJtBccD/Q==}
-    engines: {node: '>=14.0.0'}
-    dependencies:
-      '@oclif/linewrap': 1.0.0
-      '@oclif/screen': 3.0.6
-      ansi-escapes: 4.3.2
-      ansi-styles: 4.3.0
-      cardinal: 2.1.1
-      chalk: 4.1.2
-      clean-stack: 3.0.1
-      cli-progress: 3.12.0
-      debug: 4.3.4(supports-color@8.1.1)
-      ejs: 3.1.9
-      fs-extra: 9.1.0
-      get-package-type: 0.1.0
-      globby: 11.1.0
-      hyperlinker: 1.0.0
-      indent-string: 4.0.0
-      is-wsl: 2.2.0
-      js-yaml: 3.14.1
-      natural-orderby: 2.0.3
-      object-treeify: 1.1.33
-      password-prompt: 1.1.3
-      semver: 7.5.4
-      string-width: 4.2.3
-      strip-ansi: 6.0.1
-      supports-color: 8.1.1
-      supports-hyperlinks: 2.3.0
-      tslib: 2.6.2
-      widest-line: 3.1.0
-      wrap-ansi: 7.0.0
-    dev: false
-
   /@oclif/core@2.11.10(@types/node@16.18.41)(typescript@4.9.5):
     resolution: {integrity: sha512-/7Umij3OU++6o+z4U+waJ5nP6IvK9KKEVzz+xsla68YoECLQwz43boUKqYizlNMtTfiwNkiYb5QE+OU/q5qEtA==}
     engines: {node: '>=14.0.0'}
@@ -939,11 +905,6 @@ packages:
     resolution: {integrity: sha512-60CHpq+eqnTxLZQ4PGHYNwUX572hgpMHGPtTWMjdTMsAvlm69lZV/4ly6O3sAYkomo4NggGcomrDpBe34rxUqw==}
     engines: {node: '>=8.0.0'}
     deprecated: Deprecated in favor of @oclif/core
-    dev: false
-
-  /@oclif/screen@3.0.6:
-    resolution: {integrity: sha512-nEv7dFPxCrWrvK6dQ8zya0/Kb54EXVcwIKV9capjSa89ZDoOo+qH0YSo4/eQVECXgW3eUvgKLDIcIt62YBk0HA==}
-    engines: {node: '>=12.0.0'}
     dev: false
 
   /@oclif/test@2.4.5(@types/node@16.18.41)(typescript@4.9.5):
@@ -2984,7 +2945,7 @@ packages:
       fs.realpath: 1.0.0
       inflight: 1.0.6
       inherits: 2.0.4
-      minimatch: 3.0.4
+      minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
     dev: true
@@ -3213,6 +3174,7 @@ packages:
   /iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
+    requiresBuild: true
     dependencies:
       safer-buffer: 2.1.2
     dev: true
