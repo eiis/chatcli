@@ -1,4 +1,4 @@
-import { Command } from '@oclif/core'
+import { Command,Flags } from '@oclif/core'
 import 'dotenv/config'// 加载.env文件的内容
 import chalk from 'chalk';
 import { createChatCompletion } from '../../utils/openaiAPI/createChatCompletion.js';
@@ -9,7 +9,18 @@ import logUpdate  from 'log-update';
 export class MyCommand extends Command {
   static description = 'chat with the bot'
 
+  static flags = {
+    apiKey: Flags.string({ char: 'k', description: 'API key for the service' }),
+  };
+
   async run(): Promise<void> {
+    const { flags } = await this.parse(MyCommand);
+
+    if (!flags.apiKey) {
+      this.error('API key is required. Please provide it using the -k option.');
+      return;
+    }
+
     const AIEmoji = '🤖';
     const UserEmoji = '👤';
     const welcomeMessage = chalk.green(`${AIEmoji}:您好,您可以向我提问任何问题,或者使用'bye'退出`);
@@ -42,7 +53,7 @@ export class MyCommand extends Command {
       });
 
       startLoading('AI is thinking ...');
-       const apiKey = process.env.ENV_VARIBLE ? `Bearer ${process.env.ENV_VARIBLE}` : '';
+       const apiKey = flags.apiKey ? `Bearer ${flags.apiKey}` : '';
         const currentMessage = await createChatCompletion({
           apiKey,
           messages: chatMessages,
