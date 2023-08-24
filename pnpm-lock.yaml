@@ -12,8 +12,8 @@ dependencies:
     specifier: ^5
     version: 5.0.0(@oclif/config@1.18.17)
   '@oclif/plugin-plugins':
-    specifier: ^3.2.6
-    version: 3.2.6(@types/node@16.18.41)(typescript@4.9.5)
+    specifier: ^3.3.0
+    version: 3.3.0(@types/node@16.18.41)(typescript@4.9.5)
   '@types/inquirer':
     specifier: ^9.0.3
     version: 9.0.3
@@ -661,6 +661,7 @@ packages:
       strip-ansi: 6.0.1
       supports-color: 8.1.1
       tslib: 2.6.2
+    dev: true
 
   /@oclif/command@1.8.36(@oclif/config@1.18.17)(supports-color@8.1.1):
     resolution: {integrity: sha512-/zACSgaYGtAQRzc7HjzrlIs14FuEYAZrMOEwicRoUnZVyRunG4+t5iSEeQu0Xy2bgbCD0U1SP/EdeNZSTXRwjQ==}
@@ -890,11 +891,10 @@ packages:
       - typescript
     dev: true
 
-  /@oclif/plugin-plugins@3.2.6(@types/node@16.18.41)(typescript@4.9.5):
-    resolution: {integrity: sha512-MHRT3hpLLNl5bvsQOLILMwYbWJ4z/ZvHQMd9iff4jgNeWHf+a6OYB8HV0vIsIRmN0MGw7qyybMdnfSOudWHebg==}
+  /@oclif/plugin-plugins@3.3.0(@types/node@16.18.41)(typescript@4.9.5):
+    resolution: {integrity: sha512-7EewRAhGTdEYQ+ae9ReGFlKVyNyU8N3D7Nu+7witda+kLt2ENZVO9sBnnshIaYVE+7ua9A+bZ0OR+ePWf2cqkw==}
     engines: {node: '>=16'}
     dependencies:
-      '@oclif/color': 1.0.11
       '@oclif/core': 2.11.10(@types/node@16.18.41)(typescript@4.9.5)
       chalk: 4.1.2
       debug: 4.3.4(supports-color@8.1.1)
@@ -2984,7 +2984,7 @@ packages:
       fs.realpath: 1.0.0
       inflight: 1.0.6
       inherits: 2.0.4
-      minimatch: 3.0.4
+      minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
     dev: true
@@ -3213,6 +3213,7 @@ packages:
   /iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
+    requiresBuild: true
     dependencies:
       safer-buffer: 2.1.2
     dev: true
