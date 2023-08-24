@@ -4,15 +4,13 @@ import {createParser, type ParsedEvent, type ReconnectInterval} from 'eventsourc
 
 export async function createChatCompletion(options: { [x: string]: any; messages?: { content: string; role: "user" | "assistant"; }[]; onMessage: (data: string) => void }) {
   const { apiKey, onMessage, ...fetchOptions } = options;
-  // console.log(fetchOptions,apiKey,'fetchOptions');
-  const authKey = apiKey ? apiKey : '';
-  // console.log(authKey,'authKey');
+  const authKey = apiKey ? `Bearer ${apiKey}` : '';
   const OPENAI_DOMAIN = 'https://chat.fugui.info'
 
   const response = await fetch(`${OPENAI_DOMAIN}/v1/chat/completions`, {
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': authKey,
+      Authorization: authKey,
     },
     method: 'POST',
     body: JSON.stringify({
@@ -21,12 +19,12 @@ export async function createChatCompletion(options: { [x: string]: any; messages
       stream: true,
     }),
   }).catch((err:any) => {
-    console.log(chalk.red(`Error: request openai error, ${err.message}`))
+    console.log(chalk.red(`Error: request error, ${err.message}`))
     throw err
   });
 
   if (!response?.ok) {
-    console.log(chalk.red(`Error: request openai error, ${response.statusText}(${response.status}), May be more than the longest tokens`))
+    console.log(chalk.red(`Error: request error, ${response.statusText}(${response.status})`))
     process.exit(1)
   }
 

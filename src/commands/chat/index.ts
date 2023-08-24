@@ -36,7 +36,7 @@ export class MyCommand extends Command {
   async run(): Promise<void> {
     const { flags } = await this.parse(MyCommand);
 
-    let apiKey = flags.apiKey || getApiKeyFromConfig();
+    const apiKey = flags.apiKey || getApiKeyFromConfig();
 
     if (!apiKey) {
       this.error('API key is required. Please provide it using the -k option.');
@@ -78,10 +78,10 @@ export class MyCommand extends Command {
         role: 'user',
       });
 
-      startLoading('AI is thinking ...');
-      apiKey = `Bearer ${apiKey}`; // 使用用户提供的或者之前保存的apiKey
+      startLoading('请稍等...');
+      // apiKey = `Bearer ${apiKey}`; // 使用用户提供的或者之前保存的apiKey
         const currentMessage = await createChatCompletion({
-          apiKey,
+          apiKey,// 使用用户提供的或者之前保存的apiKey
           messages: chatMessages,
           onMessage: async(message) => {
             if (!message) {
