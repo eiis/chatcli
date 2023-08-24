@@ -1,11 +1,11 @@
 {
   "name": "fuguihuahua",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "chat with the bot",
   "author": "zhangdi",
   "type": "module",
   "bin": {
-    "fuguicli": "./bin/run.js"
+    "huahua": "./bin/run.js"
   },
   "homepage": "https://github.com/fuguid/fuguicli",
   "license": "MIT",

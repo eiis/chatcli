@@ -5,6 +5,26 @@ import { createChatCompletion } from '../../utils/openaiAPI/createChatCompletion
 import { startLoading, stopLoading } from '../../utils/loading.js';
 import inquirer from 'inquirer'
 import logUpdate  from 'log-update';
+import * as fs from 'fs';
+import * as os from 'os';
+import * as path from 'path';
+
+const CONFIG_PATH = path.join(os.homedir(), '.your-cli-config.json');
+
+// 从配置文件中读取API密钥
+function getApiKeyFromConfig(): string | null {
+  if (fs.existsSync(CONFIG_PATH)) {
+    const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
+    return config.apiKey || null;
+  }
+  return null;
+}
+
+// 将API密钥保存到配置文件中
+function saveApiKeyToConfig(apiKey: string): void {
+  fs.writeFileSync(CONFIG_PATH, JSON.stringify({ apiKey }));
+}
+
 
 export class MyCommand extends Command {
   static description = 'chat with the bot'
@@ -16,9 +36,15 @@ export class MyCommand extends Command {
   async run(): Promise<void> {
     const { flags } = await this.parse(MyCommand);
 
-    if (!flags.apiKey) {
+    let apiKey = flags.apiKey || getApiKeyFromConfig();
+
+    if (!apiKey) {
       this.error('API key is required. Please provide it using the -k option.');
-      return;
+    }
+
+     // 如果用户提供了新的API密钥，保存它
+     if (flags.apiKey) {
+      saveApiKeyToConfig(apiKey);
     }
 
     const AIEmoji = '🤖';
@@ -53,7 +79,7 @@ export class MyCommand extends Command {
       });
 
       startLoading('AI is thinking ...');
-       const apiKey = flags.apiKey ? `Bearer ${flags.apiKey}` : '';
+      apiKey = `Bearer ${apiKey}`; // 使用用户提供的或者之前保存的apiKey
         const currentMessage = await createChatCompletion({
           apiKey,
           messages: chatMessages,
