@@ -1,13 +1,22 @@
 import chalk from "chalk";
-import { fetch } from 'undici'
+import { fetch,type Response } from 'undici'
 import {createParser, type ParsedEvent, type ReconnectInterval} from 'eventsource-parser';
 
-export async function createChatCompletion(options: { [x: string]: any; messages?: { content: string; role: "user" | "assistant"; }[]; onMessage: (data: string) => void }) {
+interface ChatCompletionOptions {
+  messages?: {
+    content: string;
+    role: "user" | "assistant";
+  }[];
+  onMessage: (data: string) => void;
+  [x: string]: any;
+}
+
+export async function createChatCompletion(options:ChatCompletionOptions) {
   const { apiKey, onMessage, ...fetchOptions } = options;
   const authKey = apiKey ? `Bearer ${apiKey}` : '';
   const OPENAI_DOMAIN = 'https://chat.fugui.info'
 
-  const response = await fetch(`${OPENAI_DOMAIN}/v1/chat/completions`, {
+  const response:Response= await fetch(`${OPENAI_DOMAIN}/v1/chat/completions`, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: authKey,
@@ -18,7 +27,7 @@ export async function createChatCompletion(options: { [x: string]: any; messages
       ...fetchOptions,
       stream: true,
     }),
-  }).catch((err:any) => {
+  }).catch((err:Error) => {
     console.log(chalk.red(`Error: request error, ${err.message}`))
     throw err
   });
