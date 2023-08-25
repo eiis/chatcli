@@ -7,14 +7,12 @@
 ```js
 npm i fuguihuahua -g
 ```
+
 ### 使用
 #### 初始化设置
 在首次使用时，您需要传入OpenAI的key：
 ```js
 huahua chat -k ${YOUR_OPENAI_KEY}
-```
-```js
-huahua chat
 ```
 
 ### 开始聊天
