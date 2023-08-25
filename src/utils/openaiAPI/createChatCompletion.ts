@@ -1,5 +1,6 @@
 import chalk from "chalk";
-import { fetch,type Response } from 'undici'
+import { fetch } from 'undici'
+import type { Response } from 'undici';
 import {createParser, type ParsedEvent, type ReconnectInterval} from 'eventsource-parser';
 
 interface ChatCompletionOptions {
