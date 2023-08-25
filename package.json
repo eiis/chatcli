@@ -1,8 +1,8 @@
 {
   "name": "fuguihuahua",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "chat with the bot",
-  "author": "zhangdi",
+  "author": "fugui",
   "type": "module",
   "bin": {
     "huahua": "./bin/run.js"
@@ -28,6 +28,7 @@
     "@types/node-notifier": "^8.0.2",
     "axios": "^1.4.0",
     "chalk": "^5.3.0",
+    "cli-spinners": "^2.9.0",
     "dotenv": "^16.3.1",
     "eventsource-parser": "^1.0.0",
     "inquirer": "^8.0.0",
@@ -81,7 +82,7 @@
   },
   "bugs": "https://github.com/fuguid/fuguicli/issues",
   "keywords": [
-    "oclif"
+    "chat"
   ],
   "types": "dist/index.d.ts"
 }

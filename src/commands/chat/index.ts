@@ -9,6 +9,7 @@ import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 
+//创建用户主目录下名为 .your-cli-config.json 的文件的路径
 const CONFIG_PATH = path.join(os.homedir(), '.your-cli-config.json');
 
 // 从配置文件中读取API密钥
@@ -24,7 +25,6 @@ function getApiKeyFromConfig(): string | null {
 function saveApiKeyToConfig(apiKey: string): void {
   fs.writeFileSync(CONFIG_PATH, JSON.stringify({ apiKey }));
 }
-
 
 export class MyCommand extends Command {
   static description = 'chat with the bot'
@@ -48,7 +48,7 @@ export class MyCommand extends Command {
     }
 
     const AIEmoji = '🤖';
-    const UserEmoji = '👤';
+    const UserEmoji = '🧑';
     const welcomeMessage = chalk.green(`${AIEmoji}:您好,您可以向我提问任何问题,或者使用'bye'退出`);
     console.log(welcomeMessage)
 
