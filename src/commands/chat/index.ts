@@ -1,7 +1,7 @@
 import { Command, Flags } from '@oclif/core'
 import 'dotenv/config'// 加载.env文件的内容
 import chalk from 'chalk';
-import { createChatCompletion } from '../../utils/openaiAPI/createChatCompletion.js';
+import { createChatCompletion } from '../../utils/chatRequest.js';
 import { startLoading, stopLoading } from '../../utils/loading.js';
 import { getPackageVersion } from '../../utils/getPackageName.js';
 import inquirer from 'inquirer'
