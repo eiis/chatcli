@@ -1,10 +1,11 @@
-import { Command,Flags } from '@oclif/core'
+import { Command, Flags } from '@oclif/core'
 import 'dotenv/config'// 加载.env文件的内容
 import chalk from 'chalk';
 import { createChatCompletion } from '../../utils/openaiAPI/createChatCompletion.js';
 import { startLoading, stopLoading } from '../../utils/loading.js';
+import { getPackageVersion } from '../../utils/getPackageName.js';
 import inquirer from 'inquirer'
-import logUpdate  from 'log-update';
+import logUpdate from 'log-update';
 import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
@@ -31,6 +32,7 @@ export class MyCommand extends Command {
 
   static flags = {
     apiKey: Flags.string({ char: 'k', description: 'API key for the service' }),
+    version: Flags.boolean({ char: 'v', description: 'Show version number' }),
   };
 
   async run(): Promise<void> {
@@ -39,11 +41,17 @@ export class MyCommand extends Command {
     const apiKey = flags.apiKey || getApiKeyFromConfig();
 
     if (!apiKey) {
-      this.error('API key is required. Please provide it using the -k option.');
+      this.error('OPENAI_API_KEY is required. Please provide it using the -k option.');
     }
 
-     // 如果用户提供了新的API密钥，保存它
-     if (flags.apiKey) {
+    if (flags.version) { // 如果用户提供了 -v 标志
+      const version = await getPackageVersion();
+      this.log(chalk.yellow(`${version}`)); // 输出版本号
+      return;
+    }
+
+    // 如果用户提供了新的API密钥，保存它
+    if (flags.apiKey) {
       saveApiKeyToConfig(apiKey);
     }
 
@@ -52,13 +60,13 @@ export class MyCommand extends Command {
     const welcomeMessage = chalk.green(`${AIEmoji}:您好,您可以向我提问任何问题,或者使用'bye'退出`);
     console.log(welcomeMessage)
 
-     // output messages
-     const messages: string[] = [];
+    // output messages
+    const messages: string[] = [];
 
-     const chatMessages: {
-       content: string;
-       role: 'user' | 'assistant';
-     }[] = [];
+    const chatMessages: {
+      content: string;
+      role: 'user' | 'assistant';
+    }[] = [];
 
     while (true) {
       const { question } = await inquirer.prompt({
@@ -80,26 +88,26 @@ export class MyCommand extends Command {
 
       startLoading('请稍等...');
       // apiKey = `Bearer ${apiKey}`; // 使用用户提供的或者之前保存的apiKey
-        const currentMessage = await createChatCompletion({
-          apiKey,// 使用用户提供的或者之前保存的apiKey
-          messages: chatMessages,
-          onMessage: async(message) => {
-            if (!message) {
-              return;
-            }
-            stopLoading();
-            logUpdate(chalk.green(`${AIEmoji}: ${message}`));
+      const currentMessage = await createChatCompletion({
+        apiKey,// 使用用户提供的或者之前保存的apiKey
+        messages: chatMessages,
+        onMessage: async (message) => {
+          if (!message) {
+            return;
           }
-        });
-
-        if (!currentMessage) {
-          chatMessages.push({
-            content: currentMessage,
-            role: 'assistant',
-          });
+          stopLoading();
+          logUpdate(chalk.green(`${AIEmoji}: ${message}`));
         }
+      });
 
-        logUpdate.done()
+      if (!currentMessage) {
+        chatMessages.push({
+          content: currentMessage,
+          role: 'assistant',
+        });
+      }
+
+      logUpdate.done()
     }
     // const url = 'https://chat.fugui.info/v1/chat/completions'
     // // 定义固定的请求头
