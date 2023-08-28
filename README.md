@@ -9,8 +9,8 @@ npm i fuguihuahua -g
 ```
 
 ### 使用
-#### 初始化设置
-在首次使用时，您需要传入OpenAI的key：
+#### 设置OPENAI_KEY
+您可以传入您自己的OPENAI_KEY或者使用默认的OPENAI_KEY(可能不稳定)
 ```js
 huahua chat -k ${YOUR_OPENAI_KEY}
 ```
