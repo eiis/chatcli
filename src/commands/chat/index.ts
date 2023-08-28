@@ -10,6 +10,11 @@ import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 
+// 定义配置文件的类型
+interface Config {
+  apiKey?: string;
+}
+
 //创建用户主目录下名为 .your-cli-config.json 的文件的路径
 const CONFIG_PATH = path.join(os.homedir(), '.your-cli-config.json');
 
@@ -24,7 +29,8 @@ function getApiKeyFromConfig(): string | null {
 
 // 将API密钥保存到配置文件中
 function saveApiKeyToConfig(apiKey: string): void {
-  fs.writeFileSync(CONFIG_PATH, JSON.stringify({ apiKey }));
+  const config: Config = { apiKey };
+  fs.writeFileSync(CONFIG_PATH, JSON.stringify(config));
 }
 
 export class MyCommand extends Command {
@@ -38,10 +44,15 @@ export class MyCommand extends Command {
   async run(): Promise<void> {
     const { flags } = await this.parse(MyCommand);
 
-    const apiKey = flags.apiKey || getApiKeyFromConfig();
+    const apiKey: string | null = flags.apiKey || getApiKeyFromConfig();
 
     if (!apiKey) {
-      this.error('OPENAI_API_KEY is required. Please provide it using the -k option.');
+      console.log(chalk.yellow(`
+⚠️ You are using a free key (which may not be stable)
+Please set up your private key with:
+huahua chat -k YOUR_OPENAI_KEY
+      `))
+      //   this.error('OPENAI_API_KEY is required. Please provide it using the -k option.');
     }
 
     if (flags.version) { // 如果用户提供了 -v 标志
@@ -51,7 +62,7 @@ export class MyCommand extends Command {
     }
 
     // 如果用户提供了新的API密钥，保存它
-    if (flags.apiKey) {
+    if (flags.apiKey && apiKey) {
       saveApiKeyToConfig(apiKey);
     }
 
