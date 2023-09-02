@@ -3,7 +3,7 @@
 <p align="center">
     <img src="./src/assets/fugui.png" width="138"/>
     <h1 align="center">fuguicli</h1>
-    <p align="center"><code>fuguicli<code/>是一个基于<code>GPT</code>的命令行工具，专为开发者设计，旨在提供快速、准确的代码生成和编程建议以及其他聊天</p>
+    <p align="center">fuguicli是一个基于openai的命令行工具，专为开发者设计，旨在提供快速、准确的代码生成和编程建议以及其他聊天GPT的命令行工具，专为开发者设计，旨在提供快速、准确的代码生成和编程建议以及其他聊天</p>
 </p>
 
 ## 安装
