@@ -23,7 +23,7 @@
   "dependencies": {
     "@oclif/core": "^2",
     "@oclif/plugin-help": "^5",
-    "@oclif/plugin-plugins": "^3.2.6",
+    "@oclif/plugin-plugins": "^3.7.0",
     "@types/inquirer": "^9.0.3",
     "@types/node-notifier": "^8.0.2",
     "axios": "^1.4.0",
