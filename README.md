@@ -1,7 +1,7 @@
 <p align="center"></p>
 
 <p align="center">
-    <img src="./src/assets/fugui.png" width="138"/>
+    <img src="./src/assets/chat.png" width="138"/>
     <h1 align="center">chatcli</h1>
 </p>
 
