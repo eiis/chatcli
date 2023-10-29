@@ -120,24 +120,5 @@ huahua chat -k YOUR_OPENAI_KEY
 
       logUpdate.done()
     }
-    // const url = 'https://chat.fugui.info/v1/chat/completions'
-    // // 定义固定的请求头
-    // const headers = {
-    //   'Authorization': `Bearer ${process.env.ENV_VARIBLE}`,
-    //   'Content-Type': 'application/json',
-    //   // ... 其他固定的请求头
-    // };
-    // const response = await axios.post(url,
-    //   {
-    //     "model": "gpt-3.5-turbo",
-    //     "messages": [
-    //       { "role": "user", "content": "你好" }
-    //     ],
-    //   },
-    //   {
-    //     headers: headers,
-    //   }
-    // );
-    // this.log(JSON.stringify(response.data.choices[0].message.content));
   }
 }

@@ -1,18 +1,18 @@
 {
   "name": "fuguihuahua",
-  "version": "0.0.9",
+  "version": "0.1.1",
   "description": "chat with the bot",
-  "author": "fugui",
+  "author": "eiis",
   "type": "module",
   "bin": {
     "huahua": "./bin/run.js"
   },
-  "homepage": "https://github.com/fuguid/fuguicli",
+  "homepage": "https://github.com/eiis/chatcli",
   "license": "MIT",
   "main": "dist/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fuguid/fuguicli"
+    "url": "https://github.com/eiis/chatcli"
   },
   "files": [
     "/bin",
@@ -26,7 +26,6 @@
     "@oclif/plugin-plugins": "^3.2.6",
     "@types/inquirer": "^9.0.3",
     "@types/node-notifier": "^8.0.2",
-    "axios": "^1.4.0",
     "chalk": "^5.3.0",
     "cli-spinners": "^2.9.0",
     "dotenv": "^16.3.1",
@@ -36,6 +35,7 @@
     "node-notifier": "^10.0.1",
     "ora": "^7.0.1",
     "read-pkg-up": "^10.1.0",
+    "tsup": "^7.2.0",
     "undici": "^5.23.0"
   },
   "devDependencies": {
@@ -81,7 +81,7 @@
   "engines": {
     "node": ">=12.0.0"
   },
-  "bugs": "https://github.com/fuguid/fuguicli/issues",
+  "bugs": "https://github.com/eiis/chatcli",
   "keywords": [
     "chat"
   ],
